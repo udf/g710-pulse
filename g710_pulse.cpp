@@ -69,7 +69,7 @@ int main() {
     hid_free_enumeration(devs);
 
     if (!handle) {
-        std::cerr << "Failed to find suitable device" << std::endl;
+        std::cerr << "Failed to find G710" << std::endl;
         return 1;
     }
 
@@ -87,7 +87,7 @@ int main() {
                 }
             }
 
-            std::cerr << "failed to find device" << std::endl;
+            std::cerr << "failed to find audio device" << std::endl;
             return (size_t)0;
         }
     );

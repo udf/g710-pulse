@@ -4,7 +4,7 @@ CXXFLAGS += -lhidapi-hidraw
 CXXFLAGS += -Ofast
 
 all:
-	$(CXX) $(CXXFLAGS) ModularViz/OpenALDataFetcher.cpp ModularViz/Spectrum.cpp ModularViz/util.cpp g710_pulse.cpp -o g710_pulse
+	$(CXX) $(CXXFLAGS) ModularSpec/OpenALDataFetcher.cpp ModularSpec/Spectrum.cpp ModularSpec/util.cpp g710_pulse.cpp -o g710_pulse
 
 clean:
-	rm example
+	rm g710_pulse
