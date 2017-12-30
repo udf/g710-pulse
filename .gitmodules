@@ -1,0 +1,3 @@
+[submodule "ModularSpec"]
+	path = ModularSpec
+	url = https://github.com/udf/ModularSpec
