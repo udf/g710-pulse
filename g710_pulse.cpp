@@ -20,6 +20,17 @@ struct LED_SET_REPORT
     char report_id = 0x07;
     unsigned short wasd = 0x2000;
     unsigned short other = 0;
+    bool changed = false;
+
+    void set_wasd(unsigned short v) {
+        changed = changed || (this->wasd != v);
+        this->wasd = v;
+    }
+
+    void set_other(unsigned short v) {
+        changed = changed || (this->other != v);
+        this->other = v;
+    }
 };
 #pragma pack(pop)
 
@@ -123,12 +134,15 @@ int main() {
         spec_high.Update(audio_data);
 
         spec_low.GetData(20, 200, SAMPLE_RATE, bar_data, BARS);
-        report_data.other = round(weigh_bars(bar_data, weights, BARS));
+        report_data.set_other(round(weigh_bars(bar_data, weights, BARS)));
 
         spec_high.GetData(7000, 3000, SAMPLE_RATE, bar_data, BARS);
-        report_data.wasd = round(weigh_bars(bar_data, weights, BARS));
+        report_data.set_wasd(round(weigh_bars(bar_data, weights, BARS)));
 
-        hid_send_feature_report(handle, (unsigned char*)&report_data, 5);
+        if (report_data.changed) {
+            hid_send_feature_report(handle, (unsigned char*)&report_data, 5);
+            report_data.changed = false;
+        }
         mssleep(20);
     }
 
