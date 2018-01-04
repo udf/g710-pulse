@@ -103,13 +103,10 @@ int main() {
         }
     );
 
-    Spectrum spec_low(FFT_SIZE);
-    spec_low.scale = 0.1;
-    spec_low.average_weight = 0.8;
-
-    Spectrum spec_high(FFT_SIZE);
-    spec_high.scale = 2;
-    spec_high.average_weight = 1;
+    Spectrum spec(FFT_SIZE);
+    spec.UseLinearNormalisation(1, 40);
+    spec.average_weight = 1;
+    spec.scale = 0.5;
 
     float bar_data[BARS];
     float weights[BARS];
@@ -130,13 +127,12 @@ int main() {
         }
 
         audio_fetcher.GetData(audio_data);
-        spec_low.Update(audio_data);
-        spec_high.Update(audio_data);
+        spec.Update(audio_data);
 
-        spec_low.GetData(20, 200, SAMPLE_RATE, bar_data, BARS);
+        spec.GetData(20, 200, SAMPLE_RATE, bar_data, BARS);
         report_data.set_other(round(weigh_bars(bar_data, weights, BARS)));
 
-        spec_high.GetData(7000, 3000, SAMPLE_RATE, bar_data, BARS);
+        spec.GetData(7000, 3000, SAMPLE_RATE, bar_data, BARS);
         report_data.set_wasd(round(weigh_bars(bar_data, weights, BARS)));
 
         if (report_data.changed) {
