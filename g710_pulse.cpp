@@ -104,7 +104,7 @@ int main() {
     );
 
     Spectrum spec(FFT_SIZE);
-    spec.UseLinearNormalisation(1, 40);
+    spec.UseLinearNormalisation(1, 100);
     spec.average_weight = 1;
     spec.scale = 0.5;
 
