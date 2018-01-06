@@ -114,17 +114,8 @@ int main() {
         weights[i] = BARS - i;
     normalize(weights, BARS);
 
-    size_t empty_frames = 0;
     while (true) {
-        if (audio_fetcher.UpdateData() == 0) {
-            empty_frames++;
-            if (empty_frames >= 5) {
-                empty_frames = 0;
-                audio_fetcher.ReloadDevice();
-            }
-        } else {
-            empty_frames = 0;
-        }
+        audio_fetcher.UpdateData();
 
         audio_fetcher.GetData(audio_data);
         spec.Update(audio_data);
