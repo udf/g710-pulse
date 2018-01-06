@@ -50,7 +50,7 @@ float weigh_bars(float bar_data[], float weights[], size_t length) {
         out += bar_data[i] * weights[i];
     }
 
-    return map(std::pow(2, out), 1, 2, 82, 8192);
+    return map(out*out, 0, 1, 82, 8192);
 }
 
 int main() {
